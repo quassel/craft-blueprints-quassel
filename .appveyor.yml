@@ -28,7 +28,7 @@ test_script:
 
 on_success:
 - ps: |
-    craft --src-dir $env:APPVEYOR_BUILD_FOLDER --package quassel/quassel
+    craft --package quassel/quassel
     Get-ChildItem C:\CraftMaster\$env:TARGET\tmp\* | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name }
 
 environment:
