@@ -44,7 +44,7 @@ class subinfo(info.infoclass):
         self.runtimeDependencies["qt-libs/snorenotify"] = "default"
         self.runtimeDependencies["libs/zlib"] = "default"
         self.runtimeDependencies["libs/openssl"] = "default"
-        # self.runtimeDependencies["kdesupport/qca"] = "default"
+        self.runtimeDependencies["kdesupport/qca"] = "default"
         self.runtimeDependencies["dev-utils/pkg-config"] = "default"
         self.runtimeDependencies["libs/qt5/qtbase"] = "default"
         self.runtimeDependencies["libs/qt5/qtwebengine"] = "default"
