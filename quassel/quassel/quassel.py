@@ -77,11 +77,9 @@ class Package(CMakePackageBase):
 
     def createPackage(self):
         self.blacklist_file.append(os.path.join(self.packageDir(), "blacklist.txt"))
-        self.defines["gitDir"] = self.sourceDir()
         self.defines["caption"] = self.binaryArchiveName(fileType=None).capitalize()
-        self.defines["productname"] = None
-        self.defines["company"] = None
-        self.defines["vcredist"] = "none"
+        self.defines["productname"] = "Quassel IRC"
+        self.defines["company"] = "Quassel IRC"
 
         self.scriptname = os.path.join(self.packageDir(),"NullsoftInstaller.nsi")
         self.ignoredPackages.append("binary/mysql")
