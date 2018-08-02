@@ -58,8 +58,6 @@ class Package(CMakePackageBase):
         CMakePackageBase.__init__(self)
         self.supportsNinja = False
         self.subinfo.options.configure.args = " -DUSE_QT5=ON -DCMAKE_DISABLE_FIND_PACKAGE_Qt5DBus=ON"
-        if CraftCore.compiler.isMSVC2017():
-            self.subinfo.options.configure.args += " -DCMAKE_CXX_FLAGS=\"-std:c++17\""
 
     def install(self):
         if not CMakePackageBase.install(self):
@@ -79,11 +77,9 @@ class Package(CMakePackageBase):
 
     def createPackage(self):
         self.blacklist_file.append(os.path.join(self.packageDir(), "blacklist.txt"))
-        self.defines["gitDir"] = self.sourceDir()
         self.defines["caption"] = self.binaryArchiveName(fileType=None).capitalize()
-        self.defines["productname"] = None
-        self.defines["company"] = None
-        self.defines["vcredist"] = "none"
+        self.defines["productname"] = "Quassel IRC"
+        self.defines["company"] = "Quassel IRC"
 
         self.scriptname = os.path.join(self.packageDir(),"NullsoftInstaller.nsi")
         self.ignoredPackages.append("binary/mysql")
