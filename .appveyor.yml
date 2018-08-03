@@ -29,9 +29,11 @@ test_script:
 on_success:
 - ps: |
     craft --package quassel/quassel
-    Get-ChildItem C:\CraftMaster\$env:TARGET\tmp\* | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name }
 
 environment:
     matrix:
     - TARGET: windows-msvc2017_64-cl
     - TARGET: windows-msvc2017_32-cl
+
+artifacts:
+  - path: binaries\*
