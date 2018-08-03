@@ -26,7 +26,7 @@ test_script:
 - ps: |
     craft --test quassel/quassel
 
-on_success:
+after_build:
 - ps: |
     craft --package quassel/quassel
 
