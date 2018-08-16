@@ -56,7 +56,7 @@ class subinfo(info.infoclass):
 class Package(CMakePackageBase):
     def __init__(self, **args):
         CMakePackageBase.__init__(self)
-        self.supportsNinja = False
+        self.supportsNinja = self.subinfo.buildTarget == "master" or CraftVersion(self.subinfo.buildTarget) > "0.12.4"
         self.subinfo.options.configure.args = " -DUSE_QT5=ON -DCMAKE_DISABLE_FIND_PACKAGE_Qt5DBus=ON"
         if CraftCore.compiler.isMSVC2017():
             self.subinfo.options.configure.args += " -DCMAKE_CXX_FLAGS=\"-std:c++17\""
