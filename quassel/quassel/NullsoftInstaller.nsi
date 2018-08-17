@@ -216,8 +216,12 @@ Function .onInit
     ReadRegStr $R0 HKLM "${uninstkey}" "UninstallString"
     StrCmp $R0 "" done
     ReadRegStr $INSTDIR HKLM "${regkey}" "Install_Dir"
+    StrCmp $INSTDIR "" legacy
+    Goto uninst
+    legacy:
+    ReadRegStr $INSTDIR HKLM "Software\KDE\Quassel" "Install_Dir"
     ;Run the uninstaller
-    ;uninst:
+    uninst:
     ClearErrors
     ExecWait '$R0 _?=$INSTDIR' ;Do not copy the uninstaller to a temp file
     done:
