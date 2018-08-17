@@ -80,7 +80,7 @@ class Package(CMakePackageBase):
         self.defines["caption"] = self.binaryArchiveName(fileType=None).capitalize()
         self.defines["productname"] = "Quassel IRC"
         self.defines["company"] = "Quassel IRC"
-
+        self.defines["icon"] = os.path.join(self.sourceDir(), "pics", "quassel.ico")
         self.scriptname = os.path.join(self.packageDir(),"NullsoftInstaller.nsi")
         self.ignoredPackages.append("binary/mysql")
         self.ignoredPackages.append("libs/dbus")
