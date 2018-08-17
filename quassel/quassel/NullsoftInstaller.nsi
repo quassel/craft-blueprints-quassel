@@ -55,8 +55,6 @@ XPStyle on
 ShowInstDetails hide
 ShowUninstDetails hide
 
-SetCompressor /SOLID lzma
-
 Name @{productname}
 Caption "@{caption}"
 
@@ -130,9 +128,14 @@ Section "--hidden Quassel Base" QUASSEL_BASE
 
     ; package all files, recursively, preserving attributes
     ; assume files are in the correct places
+    File /a "@{dataPath}"
+    File /a "@{7za}"
+    File /a "@{icon}"
+    nsExec::ExecToLog '"$INSTDIR\7za.exe" x -r -y "$INSTDIR\@{dataName}" -o"$INSTDIR"'
+    Delete "$INSTDIR\7za.exe"
+    Delete "$INSTDIR\@{dataName}"
 
-    File /a /r /x "*.nsi" /x "*quassel.exe" /x "*quasselclient.exe" /x "*quasselcore.exe" /x "@{setupname}" "@{srcdir}\*.*"
-    File /a  ${MUI_ICON}
+    AddSize @{installSize}
 
     WriteUninstaller "${uninstaller}"
 
@@ -150,7 +153,6 @@ Section "Quassel"  QUASSEL_ALL_IN_ONE
     SetOutPath $INSTDIR
     StrCpy $ToBeRunned "$INSTDIR\quassel.exe"
     StrCpy $nameOfToBeRunend "Run Quassel"
-    File /a /oname=quassel.exe "@{srcdir}\quassel.exe"
     !insertmacro MUI_STARTMENU_WRITE_BEGIN Application
         !insertmacro SnoreShortcut "$SMPROGRAMS\$StartMenuFolder\Quassel.lnk" "$INSTDIR\quassel.exe" "${MyApp_AppUserModelId}"
     !insertmacro MUI_STARTMENU_WRITE_END
@@ -163,7 +165,6 @@ Section "QuasselClient"  QUASSEL_CLIENT
         StrCpy $ToBeRunned "$INSTDIR\quasselclient.exe"
         StrCpy $nameOfToBeRunend "Run QuasselClient"
     ${Endif}
-    File /a /oname=quasselclient.exe "@{srcdir}\quasselclient.exe"
     !insertmacro MUI_STARTMENU_WRITE_BEGIN Application
         !insertmacro SnoreShortcut "$SMPROGRAMS\$StartMenuFolder\Quassel Client.lnk" "$INSTDIR\quasselclient.exe" "${MyApp_AppUserModelId}"
     !insertmacro MUI_STARTMENU_WRITE_END
@@ -176,7 +177,6 @@ Section "QuasselCore"  QUASSEL_CORE
         StrCpy $ToBeRunned "$INSTDIR\quasselcore.exe"
         StrCpy $nameOfToBeRunend "Run QuasselCore"
     ${Endif}
-     File /a /oname=quasselcore.exe "@{srcdir}\quasselcore.exe"
     !insertmacro MUI_STARTMENU_WRITE_BEGIN Application
         CreateShortCut "$SMPROGRAMS\$StartMenuFolder\Quassel Core.lnk" "$INSTDIR\quasselcore.exe"
     !insertmacro MUI_STARTMENU_WRITE_END
