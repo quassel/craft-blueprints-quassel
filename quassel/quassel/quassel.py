@@ -57,20 +57,14 @@ class Package(CMakePackageBase):
     def __init__(self, **args):
         CMakePackageBase.__init__(self)
         self.supportsNinja = self.subinfo.buildTarget == "master" or CraftVersion(self.subinfo.buildTarget) > "0.12.4"
-        self.subinfo.options.configure.args = " -DUSE_QT5=ON -DCMAKE_DISABLE_FIND_PACKAGE_Qt5DBus=ON"
+        self.subinfo.options.configure.args = " -DUSE_QT5=ON"
+        if OsUtils.isWin():
+            self.subinfo.options.configure.args += (" -DCMAKE_INSTALL_BINDIR=bin"
+                                                    " -DCMAKE_INSTALL_LIBDIR=bin"
+                                                   )
 
     def install(self):
-        if not CMakePackageBase.install(self):
-            return False
-        if OsUtils.isWin():
-            os.makedirs(os.path.join(self.installDir(), "bin"))
-            shutil.move(os.path.join(self.installDir(), "quassel.exe"),
-                        os.path.join(self.installDir(), "bin", "quassel.exe"))
-            shutil.move(os.path.join(self.installDir(), "quasselcore.exe"),
-                        os.path.join(self.installDir(), "bin", "quasselcore.exe"))
-            shutil.move(os.path.join(self.installDir(), "quasselclient.exe"),
-                        os.path.join(self.installDir(), "bin", "quasselclient.exe"))
-        return True
+        return CMakePackageBase.install(self)
 
     def preArchive(self):
         return utils.mergeTree(os.path.join(self.archiveDir(), "bin"), self.archiveDir())
