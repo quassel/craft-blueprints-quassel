@@ -75,7 +75,33 @@ class Package(CMakePackageBase):
         self.defines["productname"] = "Quassel IRC"
         self.defines["company"] = "Quassel IRC"
         self.defines["icon"] = os.path.join(self.sourceDir(), "pics", "quassel.ico")
-        self.scriptname = os.path.join(self.packageDir(),"NullsoftInstaller.nsi")
+        self.defines["nsis_include"] = f"!include {self.packageDir()}\\SnoreNotify.nsh"
+        self.defines["sections"] = """
+!define MyApp_AppUserModelId  QuasselProject.QuasselIRC
+!define SnoreToastExe "$INSTDIR\SnoreToast.exe"
+
+Section "Quassel"  QUASSEL_ALL_IN_ONE
+    SectionIn 1
+    !insertmacro MUI_STARTMENU_WRITE_BEGIN Application
+        !insertmacro SnoreShortcut "$SMPROGRAMS\$StartMenuFolder\Quassel.lnk" "$INSTDIR\quassel.exe" "${MyApp_AppUserModelId}"
+    !insertmacro MUI_STARTMENU_WRITE_END
+SectionEnd
+
+Section "QuasselClient"  QUASSEL_CLIENT
+    SectionIn 1
+    !insertmacro MUI_STARTMENU_WRITE_BEGIN Application
+        !insertmacro SnoreShortcut "$SMPROGRAMS\$StartMenuFolder\Quassel Client.lnk" "$INSTDIR\quasselclient.exe" "${MyApp_AppUserModelId}"
+    !insertmacro MUI_STARTMENU_WRITE_END
+SectionEnd
+
+Section "QuasselCore"  QUASSEL_CORE
+    SectionIn 1
+    !insertmacro MUI_STARTMENU_WRITE_BEGIN Application
+        CreateShortCut "$SMPROGRAMS\$StartMenuFolder\Quassel Core.lnk" "$INSTDIR\quasselcore.exe"
+    !insertmacro MUI_STARTMENU_WRITE_END
+SectionEnd"""
+
+
         self.ignoredPackages.append("binary/mysql")
         self.ignoredPackages.append("libs/dbus")
 
