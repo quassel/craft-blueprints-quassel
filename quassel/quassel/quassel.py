@@ -42,6 +42,7 @@ class subinfo(info.infoclass):
 
     def setDependencies(self):
         self.runtimeDependencies["qt-libs/snorenotify"] = "default"
+        self.runtimeDependencies["libs/boost/boost-headers"] = "default"
         self.runtimeDependencies["libs/zlib"] = "default"
         self.runtimeDependencies["libs/openssl"] = "default"
         # self.runtimeDependencies["kdesupport/qca"] = "default"
