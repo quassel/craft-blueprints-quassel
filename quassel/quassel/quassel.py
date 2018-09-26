@@ -41,17 +41,18 @@ class subinfo(info.infoclass):
         self.defaultTarget = "0.12.4"
 
     def setDependencies(self):
-        self.runtimeDependencies["qt-libs/snorenotify"] = "default"
-        self.runtimeDependencies["libs/boost/boost-headers"] = "default"
-        self.runtimeDependencies["libs/zlib"] = "default"
-        self.runtimeDependencies["libs/openssl"] = "default"
-        # self.runtimeDependencies["kdesupport/qca"] = "default"
-        self.runtimeDependencies["dev-utils/pkg-config"] = "default"
-        self.runtimeDependencies["libs/qt5/qtbase"] = "default"
-        self.runtimeDependencies["libs/qt5/qtwebengine"] = "default"
-        self.runtimeDependencies["libs/qt5/qtscript"] = "default"
-        self.buildDependencies["libs/qt5/qttools"] = "default"
-        self.runtimeDependencies["kde/frameworks/tier1/sonnet"] = "default"
+        if CraftCore.compiler.isWindows:
+            self.runtimeDependencies["qt-libs/snorenotify"] = None
+        self.runtimeDependencies["libs/boost/boost-headers"] = None
+        self.runtimeDependencies["libs/zlib"] = None
+        self.runtimeDependencies["libs/openssl"] = None
+        # self.runtimeDependencies["kdesupport/qca"] = None
+        self.runtimeDependencies["dev-utils/pkg-config"] = None
+        self.runtimeDependencies["libs/qt5/qtbase"] = None
+        self.runtimeDependencies["libs/qt5/qtwebengine"] = None
+        self.runtimeDependencies["libs/qt5/qtscript"] = None
+        self.buildDependencies["libs/qt5/qttools"] = None
+        self.runtimeDependencies["kde/frameworks/tier1/sonnet"] = None
 
 
 class Package(CMakePackageBase):
