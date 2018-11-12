@@ -78,7 +78,14 @@ class Package(CMakePackageBase):
         self.defines["company"] = "Quassel IRC"
         self.defines["icon"] = os.path.join(self.sourceDir(), "pics", "quassel.ico")
         self.defines["nsis_include"] = f"!include {self.packageDir()}\\SnoreNotify.nsh"
-        self.defines["sections"] = """
+        self.defines["preInstallHook"] = r"""
+        ReadRegStr $R0 HKLM "Software\KDE\Quassel" "Install_Dir"
+        ${IfNot} $R0 == ""
+            ExecWait '"$R0\uninstall.exe" /S _?=$R0'
+        ${EndIf}
+        """
+
+        self.defines["sections"] = r"""
 !define MyApp_AppUserModelId  QuasselProject.QuasselIRC
 !define SnoreToastExe "$INSTDIR\SnoreToast.exe"
 
