@@ -62,7 +62,7 @@ class Package(CMakePackageBase):
         self.subinfo.options.configure.args = " -DUSE_QT5=ON"
         if OsUtils.isWin():
             self.subinfo.options.configure.args += (" -DCMAKE_INSTALL_BINDIR=bin"
-                                                    " -DCMAKE_INSTALL_LIBDIR=bin"
+                                                    " -DCMAKE_INSTALL_LIBDIR=lib"
                                                    )
 
     def install(self):
