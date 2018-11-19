@@ -63,6 +63,7 @@ class Package(CMakePackageBase):
         if OsUtils.isWin():
             self.subinfo.options.configure.args += (" -DCMAKE_INSTALL_BINDIR=bin"
                                                     " -DCMAKE_INSTALL_LIBDIR=lib"
+                                                    " -DFATAL_WARNINGS=ON"
                                                    )
 
     def install(self):
