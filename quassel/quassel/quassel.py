@@ -30,7 +30,7 @@ from Package.CMakePackageBase import *
 class subinfo(info.infoclass):
     def setTargets(self):
         self.svnTargets["master"] = "https://github.com/quassel/quassel.git"
-        for ver in ["0.12.0", "0.12.2", "0.12.4"]:
+        for ver in ["0.12.0", "0.12.2", "0.12.4", "0.13.0"]:
             self.targets[ver] = f"http://quassel-irc.org/pub/quassel-{ver}.tar.bz2"
             self.targetInstSrc[ver] = f"quassel-{ver}"
         self.targetDigests["0.12.2"] = "12e9a88597f724498c40a1548b5f788e7c40858c"
@@ -38,7 +38,7 @@ class subinfo(info.infoclass):
 
         self.webpage = "http://quassel-irc.org"
         self.description = "a distributed IRC client"
-        self.defaultTarget = "0.12.4"
+        self.defaultTarget = "0.13.0"
 
     def setDependencies(self):
         if CraftCore.compiler.isWindows:
