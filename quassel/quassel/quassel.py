@@ -28,6 +28,9 @@ from Package.CMakePackageBase import *
 
 
 class subinfo(info.infoclass):
+    def registerOptions(self):
+        self.options.dynamic.registerOption("buildWithKDE", False)
+
     def setTargets(self):
         self.svnTargets["master"] = "https://github.com/quassel/quassel.git"
         for ver in ["0.12.0", "0.12.2", "0.12.4", "0.13.0"]:
@@ -59,7 +62,8 @@ class Package(CMakePackageBase):
     def __init__(self, **args):
         CMakePackageBase.__init__(self)
         self.supportsNinja = self.subinfo.buildTarget == "master" or CraftVersion(self.subinfo.buildTarget) > "0.12.4"
-        self.subinfo.options.configure.args = " -DUSE_QT5=ON"
+        self.subinfo.options.configure.args += f" -DUSE_QT5=ON -DWITH_KDE={self.subinfo.options.dynamic.buildWithKDE}"
+
         if OsUtils.isWin():
             self.subinfo.options.configure.args += (" -DCMAKE_INSTALL_BINDIR=bin"
                                                     " -DCMAKE_INSTALL_LIBDIR=lib"
