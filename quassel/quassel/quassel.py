@@ -82,7 +82,6 @@ class Package(CMakePackageBase):
         self.defines["productname"] = "Quassel IRC"
         self.defines["company"] = "Quassel IRC"
         self.defines["icon"] = os.path.join(self.sourceDir(), "pics", "quassel.ico")
-        self.defines["nsis_include"] = f"!include {self.packageDir()}\\SnoreNotify.nsh"
         self.defines["preInstallHook"] = r"""
         ReadRegStr $R0 HKLM "Software\KDE\Quassel" "Install_Dir"
         ${IfNot} $R0 == ""
