@@ -23,6 +23,7 @@
 # SUCH DAMAGE.
 
 import info
+from Blueprints.CraftVersion import CraftVersion
 from CraftOS.osutils import OsUtils
 from Package.CMakePackageBase import *
 
